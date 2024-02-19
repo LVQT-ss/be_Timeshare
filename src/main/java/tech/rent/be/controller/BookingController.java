@@ -6,20 +6,18 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import tech.rent.be.dto.RealEstateDTO;
-import tech.rent.be.entity.RealEstate;
-import tech.rent.be.services.RealEstateService;
+import tech.rent.be.dto.BookingRequestDTO;
+import tech.rent.be.entity.Booking;
+import tech.rent.be.services.BookingService;
 
 @RestController
 @CrossOrigin
-public class RealEstateController {
+public class BookingController {
     @Autowired
-    RealEstateService realEstateService;
-
-    @PostMapping("/estate")
-    public ResponseEntity estate(@RequestBody RealEstateDTO realEstateDTO){
-        RealEstate realEstate = realEstateService.createEstate(realEstateDTO);
-        return ResponseEntity.ok(realEstate);
+    BookingService bookingService;
+    @PostMapping("/Booking")
+    public ResponseEntity booking(@RequestBody BookingRequestDTO bookingRequestDTO){
+        Booking booking = bookingService.createBooking(bookingRequestDTO);
+        return  ResponseEntity.ok(booking);
     }
-
 }

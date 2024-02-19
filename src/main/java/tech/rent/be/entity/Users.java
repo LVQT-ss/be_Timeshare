@@ -26,14 +26,14 @@ public class Users implements UserDetails {
 
 
     @OneToMany(mappedBy = "users")
-            @JsonIgnore
+    @JsonIgnore
     List<Post> posts;
-
-
-
     @OneToMany(mappedBy = "users")
-            @JsonIgnore
+    @JsonIgnore
     List<RealEstate> estates;
+    @OneToMany(mappedBy = "users")
+    @JsonIgnore
+    List<Booking> bookings;
     public Long getId() {
         return id;
     }
