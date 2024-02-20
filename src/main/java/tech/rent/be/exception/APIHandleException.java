@@ -12,4 +12,10 @@ public class APIHandleException {
     public ResponseEntity<?> duplicate(BadCredentialsException exception){
         return new ResponseEntity<String>(exception.getMessage(), HttpStatus.UNAUTHORIZED);
     }
+
+
+    @ExceptionHandler(DuplicateException.class)
+    public ResponseEntity<?> duplicate(DuplicateException exception){
+        return new ResponseEntity<String>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

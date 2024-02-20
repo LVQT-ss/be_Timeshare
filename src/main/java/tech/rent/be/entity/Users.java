@@ -22,6 +22,7 @@ public class Users implements UserDetails {
     Role role;
     String username;
     String password;
+    @Column(unique = true)
     String email;
 
 
