@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import tech.rent.be.dto.RealEstateDTO;
 import tech.rent.be.entity.RealEstate;
+//import tech.rent.be.entity.Resource;
 import tech.rent.be.entity.Users;
 import tech.rent.be.repository.RealEstateRepository;
 import tech.rent.be.repository.UsersRepository;
@@ -24,6 +25,8 @@ public class RealEstateService {
         realEstate.setType(realEstateDTO.getType());
         realEstate.setName(realEstateDTO.getName());
         realEstate.setUsers(users);
+//        realEstate.setResource(realEstateDTO.getResources());
+
         return realEstateRepository.save(realEstate);
     }
 }

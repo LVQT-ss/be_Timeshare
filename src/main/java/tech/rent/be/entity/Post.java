@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,9 +19,23 @@ public class Post {
     Long Price;
     Date PostDate;
 
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     Users users;
+
+//    @OneToMany
+//    @JoinColumn(name = "resource")
+//    List<Resource> resource;
+//
+//    public List<Resource> getResource() {
+//        return resource;
+//    }
+//
+//    public void setResource(List<Resource> resource) {
+//        this.resource = resource;
+//    }
+
     public void setUser(Users users) {
         this.users = users;
     }

@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import tech.rent.be.enums.Role;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -24,6 +25,13 @@ public class Users implements UserDetails {
     String password;
     @Column(unique = true)
     String email;
+
+     String fullname;
+     String dateOfBirth;
+
+     String gender;
+    String phoneNumber;
+     String address;
 
 
     @OneToMany(mappedBy = "users")
@@ -98,5 +106,69 @@ public class Users implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public List<RealEstate> getEstates() {
+        return estates;
+    }
+
+    public void setEstates(List<RealEstate> estates) {
+        this.estates = estates;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 }

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.catalina.User;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -24,6 +26,31 @@ public class RealEstate {
     @OneToOne(mappedBy = "realEstate")
     Booking booking;
 
+
+//    @OneToMany
+//    @JoinColumn(name="resource")
+//    List<Resource>resource;
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public Booking getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
+    }
+
+
+//    public List<Resource> getResource() {
+//        return resource;
+//    }
+//
+//    public void setResource(List<Resource> resource) {
+//        this.resource = resource;
+//    }
 
     public void setUsers(Users users) {
         this.users = users;
