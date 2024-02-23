@@ -9,10 +9,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tech.rent.be.dto.LoginRequestDTO;
+import tech.rent.be.dto.LoginResponseDTO;
 import tech.rent.be.dto.RegisterRequestDTO;
 import tech.rent.be.entity.Users;
 import tech.rent.be.exception.DuplicateException;
 import tech.rent.be.repository.UsersRepository;
+import tech.rent.be.utils.TokenHandler;
 
 @Service
 public class AuthenticationService {
@@ -25,6 +27,9 @@ public class AuthenticationService {
     @Autowired
     AuthenticationManager authenticationManager;
 
+    @Autowired
+    TokenHandler tokenHandler;
+
     public Users register(Users users){
         String rawPassword = users.getPassword();
         users.setPassword(passwordEncoder.encode(rawPassword));
@@ -35,15 +40,22 @@ public class AuthenticationService {
             throw new DuplicateException("Duplicate Email");
         }
     }
-    public Users login(LoginRequestDTO loginRequestDTO){
+    public LoginResponseDTO login(LoginRequestDTO loginRequestDTO){
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     loginRequestDTO.getUsername(),
                     loginRequestDTO.getPassword()
             ));
             // acoount chuan
-            return (Users) authentication.getPrincipal();
+            Users users = (Users) authentication.getPrincipal();
+            LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
+            loginResponseDTO.setId(users.getId());
+            loginResponseDTO.setFullName(users.getFullname());
+            loginResponseDTO.setUsername(users.getUsername());
+            loginResponseDTO.setToken(tokenHandler.generateToken(users));
+            return loginResponseDTO;
         }catch (Exception e){
+            e.printStackTrace();
             throw new BadCredentialsException("Username or password invalid");
         }
     }

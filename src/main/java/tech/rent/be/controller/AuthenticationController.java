@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import tech.rent.be.dto.LoginRequestDTO;
+import tech.rent.be.dto.LoginResponseDTO;
 import tech.rent.be.dto.RegisterRequestDTO;
 import tech.rent.be.entity.Users;
 import tech.rent.be.services.AuthenticationService;
@@ -26,7 +27,7 @@ public class AuthenticationController {
 
     @PostMapping("login")
     public  ResponseEntity login(@RequestBody LoginRequestDTO loginRequestDTO){
-        Users users = authenticationService.login(loginRequestDTO);
+        LoginResponseDTO users = authenticationService.login(loginRequestDTO);
         return ResponseEntity.ok(users);
     }
 //    ORM: Object Relationship mappimg

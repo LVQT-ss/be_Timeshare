@@ -9,11 +9,12 @@ public class Resource {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    Type resource;
+    @Enumerated(EnumType.STRING)
+    Type resourceType;
     String url;
 
     @ManyToOne
-    @JsonProperty(JsonProperty.Access.READ_ONLY)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @JoinColumn(name = "post_id")
     Post post;
 
@@ -43,5 +44,21 @@ public class Resource {
 
     public void setRealEstate(RealEstate realEstate) {
         this.realEstate = realEstate;
+    }
+
+    public Type getResourceType() {
+        return resourceType;
+    }
+
+    public void setResourceType(Type resourceType) {
+        this.resourceType = resourceType;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

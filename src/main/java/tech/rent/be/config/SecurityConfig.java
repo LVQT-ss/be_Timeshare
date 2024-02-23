@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import tech.rent.be.repository.UsersRepository;
 
 @Configuration
@@ -22,6 +23,9 @@ public class SecurityConfig {
 
     @Autowired
     UsersRepository usersRepository;
+
+    @Autowired
+    Filter filter;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -33,7 +37,8 @@ public class SecurityConfig {
         httpSecurity.authorizeHttpRequests(auth ->
                         auth.requestMatchers("/**").permitAll()
                                 .anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable);
+                .httpBasic(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable)
+                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 

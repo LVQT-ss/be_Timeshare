@@ -24,8 +24,7 @@ public class Post {
     @JoinColumn(name = "user_id")
     Users users;
 
-    @OneToMany
-    @JoinColumn(name = "resource")
+    @OneToMany(mappedBy = "post")
     List<Resource> resource;
 
     public List<Resource> getResource() {

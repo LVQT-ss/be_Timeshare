@@ -25,11 +25,11 @@ public class RealEstate {
     Users users;
     @OneToOne(mappedBy = "realEstate")
     Booking booking;
-
-
-    @OneToMany
-    @JoinColumn(name="resource")
+    @OneToMany(mappedBy = "realEstate", cascade = CascadeType.ALL)
     List<Resource>resource;
+
+
+
 
     public Users getUsers() {
         return users;

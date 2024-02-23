@@ -4,6 +4,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
+import tech.rent.be.entity.Resource;
 //import tech.rent.be.entity.Resource;
 
 import java.util.List;
@@ -17,9 +18,7 @@ public class RealEstateDTO {
     String location;
     String type;
 
-    Long userId;
-
-//    List<Resource> resources;
+    List<ResourceDTO> resources;
     
     public void setId(Long id) {
         Id = id;
@@ -41,21 +40,15 @@ public class RealEstateDTO {
         this.type = type;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+
+    public List<ResourceDTO> getResources() {
+        return resources;
     }
 
-//    public List<Resource> getResources() {
-//        return resources;
-//    }
-//
-//    public void setResources(List<Resource> resources) {
-//        this.resources = resources;
-//    }
-
-    public Long getUserId() {
-        return userId;
+    public void setResources(List<ResourceDTO> resources) {
+        this.resources = resources;
     }
+
 
     public Long getId() {
         return Id;

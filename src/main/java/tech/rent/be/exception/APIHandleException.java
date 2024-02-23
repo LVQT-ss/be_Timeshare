@@ -18,4 +18,14 @@ public class APIHandleException {
     public ResponseEntity<?> duplicate(DuplicateException exception){
         return new ResponseEntity<String>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(InValidToken.class)
+    public ResponseEntity<?> duplicate(InValidToken exception){
+        return new ResponseEntity<String>(exception.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(ExpiredToken.class)
+    public ResponseEntity<?> duplicate(ExpiredToken exception){
+        return new ResponseEntity<String>(exception.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
 }
