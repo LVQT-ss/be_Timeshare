@@ -3,7 +3,7 @@ package tech.rent.be.dto;
 import tech.rent.be.enums.Role;
 
 public class UserDTO {
-
+    Long id;
     Role role;
     String email;
 
@@ -13,6 +13,14 @@ public class UserDTO {
     String gender;
     String phoneNumber;
     String address;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Role getRole() {
         return role;

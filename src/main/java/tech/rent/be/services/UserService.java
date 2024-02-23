@@ -6,6 +6,8 @@ import tech.rent.be.dto.UserDTO;
 import tech.rent.be.entity.Users;
 import tech.rent.be.repository.UsersRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,6 +17,25 @@ public class UserService {
     private UsersRepository usersRepository;
 
     // Other autowiring and methods
+
+    public List<UserDTO> getAllUsers() {
+        List<Users> usersList = usersRepository.findAll();
+        List<UserDTO> userDTOList = new ArrayList<>();
+        for (Users user : usersList) {
+            UserDTO userDTO = new UserDTO();
+            // Map fields from user to userDTO
+            userDTO.setId(user.getId());
+            userDTO.setEmail(user.getEmail());
+            userDTO.setRole(user.getRole());
+            userDTO.setFullname(user.getFullname());
+            userDTO.setDateOfBirth(user.getDateOfBirth());
+            userDTO.setGender(user.getGender());
+            userDTO.setPhoneNumber(user.getPhoneNumber());
+            userDTO.setAddress(user.getAddress());
+            userDTOList.add(userDTO);
+        }
+        return userDTOList;
+    }
 
     public UserDTO getUserData(Long userId) {
         Optional<Users> userOptional = usersRepository.findById(userId);

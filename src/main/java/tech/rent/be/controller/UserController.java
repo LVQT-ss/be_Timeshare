@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.rent.be.dto.UserDTO;
 import tech.rent.be.services.UserService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/users")
 @SecurityRequirement(name = "api")
@@ -20,6 +22,15 @@ public class UserController {
 
     // Other autowiring and methods
 
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        List<UserDTO> users = userService.getAllUsers();
+        if (!users.isEmpty()) {
+            return ResponseEntity.ok(users);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
+    }
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
         try {
