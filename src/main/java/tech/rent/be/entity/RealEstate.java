@@ -27,9 +27,9 @@ public class RealEstate {
     Booking booking;
 
 
-//    @OneToMany
-//    @JoinColumn(name="resource")
-//    List<Resource>resource;
+    @OneToMany
+    @JoinColumn(name="resource")
+    List<Resource>resource;
 
     public Users getUsers() {
         return users;
@@ -44,13 +44,13 @@ public class RealEstate {
     }
 
 
-//    public List<Resource> getResource() {
-//        return resource;
-//    }
-//
-//    public void setResource(List<Resource> resource) {
-//        this.resource = resource;
-//    }
+    public List<Resource> getResource() {
+        return resource;
+    }
+
+    public void setResource(List<Resource> resource) {
+        this.resource = resource;
+    }
 
     public void setUsers(Users users) {
         this.users = users;
