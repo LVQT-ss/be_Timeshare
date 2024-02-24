@@ -12,15 +12,15 @@ import tech.rent.be.utils.AccountUtils;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api")
 @SecurityRequirement(name = "api")
+@CrossOrigin("*")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
     // Other autowiring and methods
-
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {
@@ -31,6 +31,7 @@ public class UserController {
             return ResponseEntity.noContent().build();
         }
     }
+
     @GetMapping("profile")
     public ResponseEntity<UserDTO> getUserById() {
         try {
@@ -41,6 +42,7 @@ public class UserController {
         }
         // Or you could use @ExceptionHandler to handle exceptions globally
     }
+
     @PutMapping("/update") // We specify the path to update the user details
     public ResponseEntity<UserDTO> updateProfile(@RequestBody UserDTO userDTO) {
         try {

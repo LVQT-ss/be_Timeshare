@@ -45,6 +45,7 @@ public class UserService {
         Users user = accountUtils.getCurrentUser();
         UserDTO userDTO = new UserDTO();
         // Map fields from user to userDTO
+        userDTO.setId(user.getId());
         userDTO.setEmail(user.getEmail());
         userDTO.setRole(user.getRole()); // Assuming Role is an Enum or similar
         userDTO.setFullname(user.getFullname());

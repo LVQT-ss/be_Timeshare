@@ -38,7 +38,8 @@ public class SecurityConfig {
                         auth.requestMatchers("/**").permitAll()
                                 .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable)
-                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
+                .cors(Customizer.withDefaults());
         return httpSecurity.build();
     }
 
