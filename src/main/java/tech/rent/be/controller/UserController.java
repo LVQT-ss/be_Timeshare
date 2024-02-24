@@ -2,11 +2,9 @@ package tech.rent.be.controller;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tech.rent.be.dto.UserDTO;
 import tech.rent.be.services.UserService;
 import tech.rent.be.utils.AccountUtils;
@@ -42,5 +40,14 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
         // Or you could use @ExceptionHandler to handle exceptions globally
+    }
+    @PutMapping("/update") // We specify the path to update the user details
+    public ResponseEntity<UserDTO> updateProfile(@RequestBody UserDTO userDTO) {
+        try {
+            UserDTO updatedUserDTO = userService.updateUserData(userDTO);
+            return ResponseEntity.ok(updatedUserDTO);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

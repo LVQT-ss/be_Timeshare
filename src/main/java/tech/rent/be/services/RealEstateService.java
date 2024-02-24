@@ -27,26 +27,26 @@ public class RealEstateService {
     @Autowired
     AccountUtils accountUtils;
 
-    public RealEstate createEstate(RealEstateDTO realEstateDTO){
-        Users users = accountUtils.getCurrentUser();
-        RealEstate realEstate = new RealEstate();
-        realEstate.setDescription(realEstateDTO.getDescription());
-        realEstate.setLocation(realEstateDTO.getLocation());
-        realEstate.setType(realEstateDTO.getType());
-        realEstate.setName(realEstateDTO.getName());
-        realEstate.setUsers(users);
-        List<Resource> resources = new ArrayList<>();
+        public RealEstate createEstate(RealEstateDTO realEstateDTO){
+            Users users = accountUtils.getCurrentUser();
+            RealEstate realEstate = new RealEstate();
+            realEstate.setDescription(realEstateDTO.getDescription());
+            realEstate.setLocation(realEstateDTO.getLocation());
+            realEstate.setType(realEstateDTO.getType());
+            realEstate.setName(realEstateDTO.getName());
+            realEstate.setUsers(users);
+            List<Resource> resources = new ArrayList<>();
 
-        // ResourceDTO => Resource
-        for(ResourceDTO resourceDTO: realEstateDTO.getResources()){
-            Resource resource = new Resource();
-            resource.setResourceType(resourceDTO.getResourceType());
-            resource.setUrl(resourceDTO.getUrl());
-            resource.setRealEstate(realEstate);
-            resources.add(resource);
+            // ResourceDTO => Resource
+            for(ResourceDTO resourceDTO: realEstateDTO.getResources()){
+                Resource resource = new Resource();
+                resource.setResourceType(resourceDTO.getResourceType());
+                resource.setUrl(resourceDTO.getUrl());
+                resource.setRealEstate(realEstate);
+                resources.add(resource);
+            }
+            realEstate.setResource(resources);
+
+            return realEstateRepository.save(realEstate);
         }
-        realEstate.setResource(resources);
-
-        return realEstateRepository.save(realEstate);
-    }
 }
