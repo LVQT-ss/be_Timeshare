@@ -55,6 +55,8 @@ public class UserService {
         userDTO.setAddress(user.getAddress());
         return userDTO;
     }
+
+
     public UserDTO updateUserData(UserDTO userDTO) {
         Users currentUser = accountUtils.getCurrentUser();
 
@@ -81,4 +83,18 @@ public class UserService {
         dto.setAddress(user.getAddress());
         return dto;
     }
+
+    public UserDTO deleteUseById(Long id) {
+        Optional<Users> optionalUser = usersRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            Users user = optionalUser.get();
+            usersRepository.delete(user);
+            return convertToDto(user);
+        } else {
+            // Handle case when user with given id is not found
+            throw new RuntimeException("User not found with id: " + id);
+        }
+    }
+
+
 }
