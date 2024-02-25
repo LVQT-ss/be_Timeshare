@@ -12,7 +12,7 @@ import tech.rent.be.entity.RealEstate;
 import tech.rent.be.services.RealEstateService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 @SecurityRequirement(name = "api")
 public class RealEstateController {
     @Autowired

@@ -1,9 +1,14 @@
 package tech.rent.be.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import tech.rent.be.enums.Type;
 @Entity
+@Data
 public class Resource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +21,7 @@ public class Resource {
     @ManyToOne
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @JoinColumn(name = "post_id")
+            @JsonIgnore
     Post post;
 
     @ManyToOne

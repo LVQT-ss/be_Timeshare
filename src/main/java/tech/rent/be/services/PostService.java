@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.rent.be.dto.PostRequestDTO;
 import tech.rent.be.dto.PostResponseDTO;
+import tech.rent.be.dto.ResourceDTO;
 import tech.rent.be.entity.Post;
+import tech.rent.be.entity.Resource;
 import tech.rent.be.entity.Users;
 import tech.rent.be.repository.PostRepository;
 import tech.rent.be.repository.UsersRepository;
@@ -29,6 +31,18 @@ public class PostService {
         post.setPrice(postRequestDTO.getPrice());
         post.setPostDate(postRequestDTO.getPostDate());
         post.setUser(users);
+
+        List<Resource> resources = new ArrayList<>();
+
+        // ResourceDTO => Resource
+        for(ResourceDTO resourceDTO: postRequestDTO.getResources()){
+            Resource resource = new Resource();
+            resource.setResourceType(resourceDTO.getResourceType());
+            resource.setUrl(resourceDTO.getUrl());
+            resource.setPost(post);
+            resources.add(resource);
+        }
+        post.setResource(resources);
         return postRepository.save(post);
 
     }
@@ -44,7 +58,19 @@ public class PostService {
             postResponseDTO.setPrice(post.getPrice());
             postResponseDTO.setPostDate(post.getPostDate());
             postResponseDTOList.add(postResponseDTO);
+
+            List<ResourceDTO> resourceDTOS = new ArrayList<>();
+            // ResourceDTO => Resource
+            for(Resource resource:  post.getResource()){
+                ResourceDTO resourceDTO = new ResourceDTO();
+                resourceDTO.setResourceType(resource.getResourceType());
+                resourceDTO.setUrl(resource.getUrl());
+                resourceDTOS.add(resourceDTO);
+            }
+            postResponseDTO.setResources(resourceDTOS);
+
         }
+
         return postResponseDTOList;
     }
 }

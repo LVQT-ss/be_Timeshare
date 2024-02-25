@@ -25,13 +25,13 @@ public class Users implements UserDetails {
     String password;
     @Column(unique = true)
     String email;
+    @Column(columnDefinition = "nvarchar(255)")
+    String fullname;
+    String dateOfBirth;
 
-     String fullname;
-     String dateOfBirth;
-
-     String gender;
+    String gender;
     String phoneNumber;
-     String address;
+    String address;
 
 
     @OneToMany(mappedBy = "users")

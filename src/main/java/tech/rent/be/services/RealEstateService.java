@@ -35,6 +35,7 @@ public class RealEstateService {
             realEstate.setType(realEstateDTO.getType());
             realEstate.setName(realEstateDTO.getName());
             realEstate.setUsers(users);
+
             List<Resource> resources = new ArrayList<>();
 
             // ResourceDTO => Resource
