@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import tech.rent.be.enums.AccountStatus;
 import tech.rent.be.enums.Role;
 
 import java.util.Collection;
@@ -21,6 +22,7 @@ public class Users implements UserDetails {
     Long id;
     @Enumerated(EnumType.STRING)
     Role role;
+    @Column(unique = true)
     String username;
     String password;
     @Column(unique = true)
@@ -33,6 +35,7 @@ public class Users implements UserDetails {
     String phoneNumber;
     String address;
 
+    AccountStatus status;
 
     @OneToMany(mappedBy = "users")
     @JsonIgnore
@@ -126,6 +129,14 @@ public class Users implements UserDetails {
 
     public String getGender() {
         return gender;
+    }
+
+    public AccountStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(AccountStatus status) {
+        this.status = status;
     }
 
     public void setGender(String gender) {

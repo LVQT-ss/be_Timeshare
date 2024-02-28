@@ -37,6 +37,7 @@ public class UserService {
             userDTO.setPhoneNumber(user.getPhoneNumber());
             userDTO.setAddress(user.getAddress());
             userDTOList.add(userDTO);
+
         }
         return userDTOList;
     }

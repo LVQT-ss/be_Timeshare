@@ -2,10 +2,7 @@ package tech.rent.be.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tech.rent.be.dto.LoginRequestDTO;
 import tech.rent.be.dto.LoginResponseDTO;
 import tech.rent.be.dto.RegisterRequestDTO;
@@ -21,7 +18,7 @@ public class AuthenticationController {
     @PostMapping("register")
     public ResponseEntity register(@RequestBody Users dto){
         Users users = authenticationService.register(dto);
-            return ResponseEntity.ok(users);
+        return ResponseEntity.ok(users);
 
     }
 
@@ -30,5 +27,13 @@ public class AuthenticationController {
         LoginResponseDTO users = authenticationService.login(loginRequestDTO);
         return ResponseEntity.ok(users);
     }
+
+
+    @GetMapping("active")
+    public ResponseEntity activeAccount(@RequestParam String token){
+        authenticationService.activeAccount(token);
+        return ResponseEntity.ok("Successfully active account!");
+    }
+
 //    ORM: Object Relationship mappimg
 }
