@@ -30,9 +30,9 @@ public class EmailService {
         try{
 
             context.setVariable("name", emailDetail.getUser().getFullname() );
-            context.setVariable("link", "http://localhost:8081/active?token="+tokenHandler.generateToken(emailDetail.getUser()));
+            context.setVariable("link", "http://4rent.tech:8081/active?token="+tokenHandler.generateToken(emailDetail.getUser()));
 
-            String text = templateEngine.process("emailtemplate", context);
+            String text = templateEngine.process("emailTemplate", context);
 
             // Creating a simple mail message
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();

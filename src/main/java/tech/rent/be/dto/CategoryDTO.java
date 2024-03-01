@@ -7,7 +7,6 @@ public class CategoryDTO {
         return Categoryname;
     }
 
-
     public void setCategoryname(String categoryname) {
         Categoryname = categoryname;
     }
