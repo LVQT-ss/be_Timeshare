@@ -34,4 +34,9 @@ public class RealEstate {
     @JoinColumn(name = "category")
     Category category;
 
+    @ManyToOne
+    @JoinColumn(name = "location")
+    Location location;
+
+
 }

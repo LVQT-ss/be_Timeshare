@@ -19,6 +19,7 @@ public class RealEstateDTO {
     Date date;
     Long amount;
     Long categoryId;
+    Long locationId;
 
     List<ResourceDTO> resources;
 

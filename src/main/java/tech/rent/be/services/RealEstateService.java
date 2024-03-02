@@ -5,12 +5,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import tech.rent.be.dto.RealEstateDTO;
 import tech.rent.be.dto.ResourceDTO;
-import tech.rent.be.entity.Category;
-import tech.rent.be.entity.RealEstate;
+import tech.rent.be.entity.*;
 //import tech.rent.be.entity.Resource;
-import tech.rent.be.entity.Resource;
-import tech.rent.be.entity.Users;
 import tech.rent.be.repository.CategoryRepository;
+import tech.rent.be.repository.LocationRepository;
 import tech.rent.be.repository.RealEstateRepository;
 import tech.rent.be.repository.UsersRepository;
 import tech.rent.be.utils.AccountUtils;
@@ -33,9 +31,12 @@ public class RealEstateService {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    LocationRepository locationRepository;
         public RealEstate createEstate(RealEstateDTO realEstateDTO){
             Users users = accountUtils.getCurrentUser();
             Category category = categoryRepository.findCategoryById(realEstateDTO.getCategoryId());
+            Location location = locationRepository.findLocationById(realEstateDTO.getLocationId());
             RealEstate realEstate = new RealEstate();
             realEstate.setDescription(realEstateDTO.getDescription());
             realEstate.setTitle(realEstateDTO.getTitle());
@@ -43,6 +44,7 @@ public class RealEstateService {
             realEstate.setDate(realEstateDTO.getDate());
             realEstate.setAmount(realEstateDTO.getAmount());
             realEstate.setCategory(category);
+            realEstate.setLocation(location);
             realEstate.setUsers(users);
 
             List<RealEstate> realEstates = category.getEstates();
@@ -54,6 +56,21 @@ public class RealEstateService {
             realEstates.add(realEstate);
 
             category.setEstates(realEstates);
+
+
+            List<RealEstate> realEstate02 = category.getEstates();
+
+            if(realEstate02 == null){
+                realEstate02 = new ArrayList<>();
+            }
+
+            realEstate02.add(realEstate);
+
+            category.setEstates(realEstate02);
+
+
+
+
 
             List<Resource> resources = new ArrayList<>();
             // ResourceDTO => Resource
