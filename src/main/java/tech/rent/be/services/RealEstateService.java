@@ -78,6 +78,7 @@ public class RealEstateService {
     public List<RealEstateDTO> getAllRealEstate() {
         List<RealEstate> estateList = realEstateRepository.findAll();
         List<RealEstateDTO> estateDTOList = new ArrayList<>();
+
         for (RealEstate realEstate : estateList) {
             RealEstateDTO realEstateDTO = new RealEstateDTO();
             //Map
@@ -86,6 +87,10 @@ public class RealEstateService {
             realEstateDTO.setDescription(realEstate.getDescription());
             realEstateDTO.setDate(realEstate.getDate());
             realEstateDTO.setAmount(realEstate.getAmount());
+            if (realEstate.getCategory() != null)realEstateDTO.setCategoryId(realEstate.getCategory().getId());
+
+            if (realEstate.getLocation() != null) realEstateDTO.setLocationId(realEstate.getLocation().getId());
+
             estateDTOList.add(realEstateDTO);
 
             List<ResourceDTO> resourceDTOS = new ArrayList<>();
