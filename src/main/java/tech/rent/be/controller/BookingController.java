@@ -15,9 +15,9 @@ import tech.rent.be.services.BookingService;
 public class BookingController {
     @Autowired
     BookingService bookingService;
-    @PostMapping("/Booking")
-    public ResponseEntity booking(@RequestBody BookingRequestDTO bookingRequestDTO){
-        Booking booking = bookingService.createBooking(bookingRequestDTO);
-        return  ResponseEntity.ok(booking);
-    }
+//    @PostMapping("/Booking")
+//    public ResponseEntity booking(@RequestBody BookingRequestDTO bookingRequestDTO){
+//        Booking booking = bookingService.createBooking(bookingRequestDTO);
+//        return  ResponseEntity.ok(booking);
+//    }
 }
