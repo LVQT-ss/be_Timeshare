@@ -7,16 +7,18 @@ import lombok.Data;
 import tech.rent.be.entity.Resource;
 //import tech.rent.be.entity.Resource;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
 public class RealEstateDTO {
 
     Long Id;
-    String name;
+    String title;
     String description;
-    String location;
-    String type;
+    Date date;
+    Long amount;
+    Long categoryId;
 
     List<ResourceDTO> resources;
 

@@ -56,6 +56,7 @@ public class AuthenticationService {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     loginRequestDTO.getUsername(),
                     loginRequestDTO.getPassword()
+
             ));
             // acoount chuan
             users = (Users) authentication.getPrincipal();
@@ -66,6 +67,7 @@ public class AuthenticationService {
             loginResponseDTO.setId(users.getId());
             loginResponseDTO.setFullName(users.getFullname());
             loginResponseDTO.setUsername(users.getUsername());
+            loginResponseDTO.setRole(users.getRole());
             loginResponseDTO.setToken(tokenHandler.generateToken(users));
             return loginResponseDTO;
         }catch (Exception e){

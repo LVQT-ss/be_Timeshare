@@ -27,10 +27,6 @@ public class PostController {
     @GetMapping("/show")
     public ResponseEntity<List<PostResponseDTO>> getAllPosts() {
         List<PostResponseDTO> posts = postService.getAllPosts();
-        if (!posts.isEmpty()) {
-            return ResponseEntity.ok(posts);
-        } else {
-            return ResponseEntity.noContent().build();
-        }
+        return ResponseEntity.ok(posts);
     }
 }

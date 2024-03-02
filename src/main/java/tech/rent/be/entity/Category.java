@@ -1,12 +1,11 @@
 package tech.rent.be.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,11 +16,7 @@ public class Category {
     Long Id;
     String Categoryname;
 
-    public String getCategoryname() {
-        return Categoryname;
-    }
+    @OneToMany(mappedBy = "category")
+    List<RealEstate> estates;
 
-    public void setCategoryname(String categoryname) {
-        Categoryname = categoryname;
-    }
 }
