@@ -4,9 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
-import tech.rent.be.dto.PostResponseDTO;
 import tech.rent.be.dto.RealEstateDTO;
 import tech.rent.be.dto.ResourceDTO;
 import tech.rent.be.entity.*;
@@ -109,11 +107,13 @@ public class RealEstateService {
             realEstateDTO.setDescription(realEstate.getDescription());
             realEstateDTO.setDate(realEstate.getDate());
             realEstateDTO.setAmount(realEstate.getAmount());
+            System.out.println(realEstate.getLocation().getLocation());
+            System.out.println(realEstate.getCategory().getCategoryname());
+
             realEstateDTO.setLocation(realEstate.getLocation().getLocation());
             realEstateDTO.setCategory(realEstate.getCategory().getCategoryname());
-            if (realEstate.getCategory() != null)realEstateDTO.setCategoryId(realEstate.getCategory().getId());
-
-            if (realEstate.getLocation() != null) realEstateDTO.setLocationId(realEstate.getLocation().getId());
+                 realEstateDTO.setCategoryId(realEstate.getCategory().getId());
+               realEstateDTO.setLocationId(realEstate.getLocation().getId());
 
             estateDTOList.add(realEstateDTO);
 

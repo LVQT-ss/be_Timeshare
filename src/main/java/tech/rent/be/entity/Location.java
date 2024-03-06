@@ -1,11 +1,13 @@
 package tech.rent.be.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -13,11 +15,12 @@ import java.util.List;
 @Setter
 @Entity
 public class Location {
-    @jakarta.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long Id;
+    Long id;
     String Location;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "location")
     List<RealEstate> estates;
 

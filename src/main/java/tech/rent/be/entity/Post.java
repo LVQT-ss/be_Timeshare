@@ -2,8 +2,11 @@ package tech.rent.be.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import tech.rent.be.enums.PostStatus;
 
 import java.util.Date;
 import java.util.List;
@@ -11,6 +14,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +29,8 @@ public class Post {
 
     Long Price;
     Date PostDate;
-
-
+    @Enumerated(EnumType.STRING)
+    private PostStatus postStatus;
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore

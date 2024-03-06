@@ -1,5 +1,6 @@
 package tech.rent.be.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,8 +23,11 @@ public class Booking {
     @JoinColumn(name = "user_id")
     Users users;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "booking")
     Payment payment;
+
+
     @ManyToOne
     @JoinColumn(name = "estate_id", unique = false)
     RealEstate realEstate;

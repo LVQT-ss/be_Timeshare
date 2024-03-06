@@ -8,9 +8,11 @@ import tech.rent.be.dto.PostRequestDTO;
 import tech.rent.be.dto.PostResponseDTO;
 import tech.rent.be.dto.UserDTO;
 import tech.rent.be.entity.Post;
+import tech.rent.be.repository.PostRepository;
 import tech.rent.be.services.PostService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/post")
@@ -19,6 +21,8 @@ import java.util.List;
 public class PostController {
     @Autowired
     PostService postService;
+    @Autowired
+    PostRepository postRepository;
     @PostMapping
     public ResponseEntity post(@RequestBody PostRequestDTO postRequestDTO){
         Post post = postService.createPost(postRequestDTO);
@@ -28,5 +32,10 @@ public class PostController {
     public ResponseEntity<List<PostResponseDTO>> getAllPosts() {
         List<PostResponseDTO> posts = postService.getAllPosts();
         return ResponseEntity.ok(posts);
+    }
+    @PutMapping("/delete/{postId}")
+    public ResponseEntity<Post> deletePost(@PathVariable Long postId) {
+        Post post = postService.deletePost(postId);
+        return ResponseEntity.ok(post);
     }
 }

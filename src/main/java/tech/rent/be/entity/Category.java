@@ -1,6 +1,7 @@
 package tech.rent.be.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,7 @@ public class Category {
     Long Id;
     String Categoryname;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "category")
     List<RealEstate> estates;
 

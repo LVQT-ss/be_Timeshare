@@ -1,5 +1,6 @@
 package tech.rent.be.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,8 +30,12 @@ public class RealEstate {
     @ManyToOne
     @JoinColumn(name = "user_id")
     Users users;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "realEstate")
     List<Booking> booking;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "realEstate", cascade = CascadeType.ALL)
     List<Resource>resource;
 

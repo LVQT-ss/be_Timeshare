@@ -40,9 +40,11 @@ public class Users implements UserDetails {
     @OneToMany(mappedBy = "users")
     @JsonIgnore
     List<Post> posts;
+
     @OneToMany(mappedBy = "users")
     @JsonIgnore
     List<RealEstate> estates;
+
     @OneToMany(mappedBy = "users")
     @JsonIgnore
     List<Booking> bookings;

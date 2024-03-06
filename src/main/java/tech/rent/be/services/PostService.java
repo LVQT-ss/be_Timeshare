@@ -8,6 +8,7 @@ import tech.rent.be.dto.ResourceDTO;
 import tech.rent.be.entity.Post;
 import tech.rent.be.entity.Resource;
 import tech.rent.be.entity.Users;
+import tech.rent.be.enums.PostStatus;
 import tech.rent.be.repository.PostRepository;
 import tech.rent.be.repository.UsersRepository;
 
@@ -73,5 +74,11 @@ public class PostService {
 
         return postResponseDTOList;
     }
+    public Post deletePost(long postId) {
+       Post post = postRepository.findById(postId);
+       post.setPostStatus(PostStatus.INACTIVE);
+       return  postRepository.save(post);
+    }
+
 }
 

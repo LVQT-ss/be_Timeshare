@@ -4,13 +4,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import tech.rent.be.entity.Resource;
 //import tech.rent.be.entity.Resource;
 
 import java.util.Date;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 public class RealEstateDTO {
 
     Long Id;
@@ -22,7 +25,6 @@ public class RealEstateDTO {
     Long locationId;
     String category;
     String location;
-
     List<ResourceDTO> resources;
 
 }

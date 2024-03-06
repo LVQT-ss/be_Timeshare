@@ -2,9 +2,7 @@ package tech.rent.be.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tech.rent.be.dto.CategoryDTO;
 import tech.rent.be.dto.LocationDTO;
-import tech.rent.be.entity.Category;
 import tech.rent.be.entity.Location;
 import tech.rent.be.repository.LocationRepository;
 
