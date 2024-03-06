@@ -20,6 +20,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -72,7 +73,9 @@ public class BookingService {
         return calendar.getTime();
     }
 
+
     public String getVnPay(BookingRequestDTO bookingRequestDTO) throws Exception{
+        String amount = String.valueOf(bookingRequestDTO.getAmount())+"00";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         LocalDateTime createDate = LocalDateTime.now();
         String formattedCreateDate = createDate.format(formatter);
@@ -91,7 +94,7 @@ public class BookingService {
         String tmnCode = "40A49IOQ";
         String secretKey = "AEEWMWRNYYHFFBUSVJDVOLNYMRXTBMTQ";
         String vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        String returnUrl = "http://localhost:8081/success";
+        String returnUrl = "http://localhost:3000/success";
 
         String currCode = "VND";
         Map<String, String> vnpParams = new TreeMap<>();
@@ -103,7 +106,7 @@ public class BookingService {
         vnpParams.put("vnp_TxnRef", newBooking.getId().toString());
         vnpParams.put("vnp_OrderInfo", "Thanh toan cho ma GD: " + newBooking.getId());
         vnpParams.put("vnp_OrderType", "other");
-        vnpParams.put("vnp_Amount", String.valueOf(4 * 10000000));
+        vnpParams.put("vnp_Amount",amount );
         vnpParams.put("vnp_ReturnUrl", returnUrl);
         vnpParams.put("vnp_CreateDate", formattedCreateDate);
         vnpParams.put("vnp_IpAddr", "128.199.178.23");
