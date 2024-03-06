@@ -22,6 +22,8 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -35,6 +37,8 @@ public class BookingService {
     @Autowired
     AccountUtils accountUtils;
 
+    @Autowired
+    RealEstateService realEstateService;
     @Autowired
     UsersRepository usersRepository;
 //    public Booking createBooking(BookingRequestDTO BookingRequestDTO){
@@ -51,16 +55,37 @@ public class BookingService {
 //        return bookingRepository.save(Booking);
 //    }
 
+    public static Date convertDate(Date date, int hour, int minute, int second) {
+        // Create a Calendar instance and set it to the input date
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        // Set the fixed time
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, second);
+
+        // Clear milliseconds to ensure consistent results
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        // Get the updated Date from the Calendar
+        return calendar.getTime();
+    }
+
     public String getVnPay(BookingRequestDTO bookingRequestDTO) throws Exception{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         LocalDateTime createDate = LocalDateTime.now();
         String formattedCreateDate = createDate.format(formatter);
         Booking booking = new Booking();
-        RealEstate realEstate = realEstateRepository.findRealEstateById(bookingRequestDTO.getId());
+        long realEstateId = bookingRequestDTO.getEstateId();
+        RealEstate realEstate = realEstateService.finRealEstateById(realEstateId);
         booking.setBookingDate(bookingRequestDTO.getDate());
+        booking.setCheckIn(convertDate(bookingRequestDTO.getDate(), 12,0,0));
+        booking.setCheckOut(convertDate(bookingRequestDTO.getDate(), 14,0,0));
         booking.setRealEstate(realEstate);
         booking.setUsers(accountUtils.getCurrentUser());
         booking.setStatus(false);
+        booking.setAmount(bookingRequestDTO.getAmount());
         Booking newBooking = bookingRepository.save(booking);
 
         String tmnCode = "40A49IOQ";

@@ -1,7 +1,9 @@
 package tech.rent.be.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.catalina.User;
 
@@ -11,10 +13,12 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class RealEstate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long Id;
+    Long id;
     String title;
     String description;
     Date date;
@@ -25,8 +29,8 @@ public class RealEstate {
     @ManyToOne
     @JoinColumn(name = "user_id")
     Users users;
-    @OneToOne(mappedBy = "realEstate")
-    Booking booking;
+    @OneToMany(mappedBy = "realEstate")
+    List<Booking> booking;
     @OneToMany(mappedBy = "realEstate", cascade = CascadeType.ALL)
     List<Resource>resource;
 

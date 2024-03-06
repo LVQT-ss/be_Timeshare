@@ -20,6 +20,8 @@ public class RealEstateDTO {
     Long amount;
     Long categoryId;
     Long locationId;
+    String category;
+    String location;
 
     List<ResourceDTO> resources;
 
