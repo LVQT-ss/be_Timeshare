@@ -33,7 +33,7 @@ public class CategoryService {
     }
     private CategoryDTO convertToCategoryDTO(Category category) {
         CategoryDTO categoryDTO = new CategoryDTO();
-        categoryDTO.setCategoryname(category.getId().toString());
+        categoryDTO.setId(category.getId());
         categoryDTO.setCategoryname(category.getCategoryname());
         return categoryDTO;
     }

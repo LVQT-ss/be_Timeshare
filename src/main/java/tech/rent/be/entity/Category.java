@@ -15,6 +15,7 @@ public class Category {
     @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long Id;
+    @Column(columnDefinition = "nvarchar(255)")
     String Categoryname;
 
     @JsonIgnore

@@ -31,7 +31,7 @@ public class LocationService {
 
     private LocationDTO convertToLocationDTO(Location location) {
         LocationDTO locationDTO = new LocationDTO();
-        locationDTO.setLocation(location.getId().toString());
+        locationDTO.setId(location.getId());
         locationDTO.setLocation(location.getLocation());
         return locationDTO;
     }

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.catalina.User;
 
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +26,8 @@ public class RealEstate {
     Date date;
     Long amount;
 
+    Time checkIn;
+    Time checkOut;
 
 
     @ManyToOne

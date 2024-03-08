@@ -9,6 +9,7 @@ import lombok.Setter;
 import tech.rent.be.entity.Resource;
 //import tech.rent.be.entity.Resource;
 
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +26,9 @@ public class RealEstateDTO {
     Long locationId;
     String category;
     String location;
+    Time checkIn;
+    Time checkOut;
+
     List<ResourceDTO> resources;
 
 }

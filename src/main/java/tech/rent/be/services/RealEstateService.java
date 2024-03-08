@@ -61,6 +61,8 @@ public class RealEstateService {
         realEstate.setDescription(realEstateDTO.getDescription());
         realEstate.setDate(realEstateDTO.getDate());
         realEstate.setAmount(realEstateDTO.getAmount());
+        realEstate.setCheckIn(realEstateDTO.getCheckIn());
+        realEstate.setCheckOut(realEstateDTO.getCheckOut());
         realEstate.setCategory(category);
         realEstate.setLocation(location);
         realEstate.setUsers(users);
@@ -107,6 +109,8 @@ public class RealEstateService {
             realEstateDTO.setDescription(realEstate.getDescription());
             realEstateDTO.setDate(realEstate.getDate());
             realEstateDTO.setAmount(realEstate.getAmount());
+            realEstateDTO.setCheckIn(realEstate.getCheckIn());
+            realEstateDTO.setCheckOut(realEstate.getCheckOut());
             System.out.println(realEstate.getLocation().getLocation());
             System.out.println(realEstate.getCategory().getCategoryname());
 
