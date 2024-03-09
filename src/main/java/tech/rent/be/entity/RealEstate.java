@@ -28,7 +28,6 @@ public class RealEstate {
 
     Long price;
 
-
     Time checkIn;
     Time checkOut;
 
@@ -36,22 +35,31 @@ public class RealEstate {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+            @JsonIgnore
     Users users;
 
     @JsonIgnore
     @OneToMany(mappedBy = "realEstate")
     List<Booking> booking;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "realEstate", cascade = CascadeType.ALL)
     List<Resource>resource;
 
     @ManyToOne
     @JoinColumn(name = "category")
+    @JsonIgnore
     Category category;
 
     @ManyToOne
     @JoinColumn(name = "location")
+    @JsonIgnore
     Location location;
+
+
+    @OneToMany(mappedBy = "realEstate")
+    @JsonIgnore
+    List<Post> post;
+
+
 
 }

@@ -20,7 +20,7 @@ public class RealEstateDTO {
     Long Id;
     String title;
     String description;
-    Date date;
+//    Date date;
     Long amount;
     Long Price;
     Long categoryId;

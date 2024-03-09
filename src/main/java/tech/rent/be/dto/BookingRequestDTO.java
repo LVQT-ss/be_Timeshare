@@ -7,7 +7,7 @@ import java.util.Date;
 @Data
 public class BookingRequestDTO {
     Long Id;
-//    Date date;
+    Date date;
     int numberOfDate;
     long estateId;
     int amount;

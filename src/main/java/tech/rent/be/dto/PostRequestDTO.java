@@ -7,12 +7,9 @@ import java.util.List;
 
 @Data
 public class PostRequestDTO {
-
     Long id;
     String content;
     String title;
-    Long Price;
-    Date PostDate;
-    Long userId;
-    List<ResourceDTO> resources;
+    Long discount;
+    Long estateId;
 }

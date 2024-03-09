@@ -1,6 +1,7 @@
 package tech.rent.be.dto;
 
 import lombok.Data;
+import tech.rent.be.entity.RealEstate;
 
 import java.util.Date;
 import java.util.List;
@@ -9,8 +10,6 @@ public class PostResponseDTO {
     Long id;
     String content;
     String title;
-    Long Price;
-    Date PostDate;
-    Long userId;
-    List<ResourceDTO> resources;
+    Long discount;
+    RealEstate realEstate;
 }

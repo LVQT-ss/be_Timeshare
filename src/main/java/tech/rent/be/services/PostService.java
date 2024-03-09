@@ -6,11 +6,14 @@ import tech.rent.be.dto.PostRequestDTO;
 import tech.rent.be.dto.PostResponseDTO;
 import tech.rent.be.dto.ResourceDTO;
 import tech.rent.be.entity.Post;
+import tech.rent.be.entity.RealEstate;
 import tech.rent.be.entity.Resource;
 import tech.rent.be.entity.Users;
 import tech.rent.be.enums.PostStatus;
 import tech.rent.be.repository.PostRepository;
+import tech.rent.be.repository.RealEstateRepository;
 import tech.rent.be.repository.UsersRepository;
+import tech.rent.be.utils.AccountUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,27 +26,20 @@ public class PostService {
     @Autowired
     UsersRepository usersRepository;
 
+    @Autowired
+    RealEstateRepository realEstateRepository;
+    @Autowired
+    AccountUtils accountUtils;
     public Post createPost(PostRequestDTO postRequestDTO){
-        Users users = usersRepository.findUsersById(postRequestDTO.getUserId());
+        Users users = accountUtils.getCurrentUser();
+        RealEstate realEstate = realEstateRepository.findRealEstateById(postRequestDTO.getEstateId());
         Post post = new Post();
         post.setId(postRequestDTO.getId());
         post.setContent(postRequestDTO.getContent());
         post.setTitle(postRequestDTO.getTitle());
-        post.setPrice(postRequestDTO.getPrice());
-        post.setPostDate(postRequestDTO.getPostDate());
-        post.setUser(users);
-
-        List<Resource> resources = new ArrayList<>();
-
-        // ResourceDTO => Resource
-        for(ResourceDTO resourceDTO: postRequestDTO.getResources()){
-            Resource resource = new Resource();
-            resource.setResourceType(resourceDTO.getResourceType());
-            resource.setUrl(resourceDTO.getUrl());
-            resource.setPost(post);
-            resources.add(resource);
-        }
-        post.setResource(resources);
+        post.setDiscount(postRequestDTO.getDiscount());
+        post.setUsers(users);
+        post.setRealEstate(realEstate);
         return postRepository.save(post);
 
     }
@@ -56,22 +52,10 @@ public class PostService {
             postResponseDTO.setId(post.getId());
             postResponseDTO.setContent(post.getContent());
             postResponseDTO.setTitle(post.getTitle());
-            postResponseDTO.setPrice(post.getPrice());
-            postResponseDTO.setPostDate(post.getPostDate());
+            postResponseDTO.setDiscount(post.getDiscount());
+            postResponseDTO.setRealEstate(post.getRealEstate());
             postResponseDTOList.add(postResponseDTO);
-
-            List<ResourceDTO> resourceDTOS = new ArrayList<>();
-            // ResourceDTO => Resource
-            for(Resource resource:  post.getResource()){
-                ResourceDTO resourceDTO = new ResourceDTO();
-                resourceDTO.setResourceType(resource.getResourceType());
-                resourceDTO.setUrl(resource.getUrl());
-                resourceDTOS.add(resourceDTO);
-            }
-            postResponseDTO.setResources(resourceDTOS);
-
         }
-
         return postResponseDTOList;
     }
     public Post deletePost(long postId) {

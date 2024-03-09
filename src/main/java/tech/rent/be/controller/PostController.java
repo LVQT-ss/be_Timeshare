@@ -28,6 +28,7 @@ public class PostController {
         Post post = postService.createPost(postRequestDTO);
         return  ResponseEntity.ok(post);
     }
+
     @GetMapping("/show")
     public ResponseEntity<List<PostResponseDTO>> getAllPosts() {
         List<PostResponseDTO> posts = postService.getAllPosts();

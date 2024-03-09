@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.rent.be.dto.PostResponseDTO;
 import tech.rent.be.dto.RealEstateDTO;
+import tech.rent.be.dto.UserDTO;
 import tech.rent.be.entity.RealEstate;
 import tech.rent.be.services.RealEstateService;
 
@@ -30,6 +31,22 @@ public class RealEstateController {
     public ResponseEntity<List<RealEstateDTO>> getAllRealEstate() {
         List<RealEstateDTO> estates = realEstateService.getAllRealEstate();
         return ResponseEntity.ok(estates);
+    }
+
+    @GetMapping("/showEstateDetail/{id}")
+    public ResponseEntity<RealEstateDTO> getEstateById(@PathVariable long id) {
+        RealEstateDTO estateById = realEstateService.getEstateById(id);
+        return ResponseEntity.ok(estateById);
+    }
+    @GetMapping("/allRealEstateOfCurrentUser")
+    public ResponseEntity<List<RealEstateDTO>> getAllEstateByCurrentUser() {
+        try {
+            List<RealEstateDTO> realEstateDTO = realEstateService.getAllEstateByCurrentUser();
+            return ResponseEntity.ok(realEstateDTO);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+        // Or you could use @ExceptionHandler to handle exceptions globally
     }
 
 

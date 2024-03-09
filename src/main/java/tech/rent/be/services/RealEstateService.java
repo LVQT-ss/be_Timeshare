@@ -40,6 +40,7 @@ public class RealEstateService {
     @Autowired
     BookingRepository bookingRepository;
 
+
     @PersistenceContext
     EntityManager entityManager;
     public RealEstate finRealEstateById(long id){
@@ -59,7 +60,7 @@ public class RealEstateService {
         realEstate.setDescription(realEstateDTO.getDescription());
         realEstate.setTitle(realEstateDTO.getTitle());
         realEstate.setDescription(realEstateDTO.getDescription());
-        realEstate.setDate(realEstateDTO.getDate());
+//        realEstate.setDate(realEstateDTO.getDate());
         realEstate.setAmount(realEstateDTO.getAmount());
 
         realEstate.setPrice(realEstateDTO.getPrice());
@@ -111,13 +112,13 @@ public class RealEstateService {
             realEstateDTO.setId(realEstate.getId());
             realEstateDTO.setTitle(realEstate.getTitle());
             realEstateDTO.setDescription(realEstate.getDescription());
-            realEstateDTO.setDate(realEstate.getDate());
+//            realEstateDTO.setDate(realEstate.getDate());
             realEstateDTO.setAmount(realEstate.getAmount());
             realEstateDTO.setCheckIn(realEstate.getCheckIn());
             realEstateDTO.setCheckOut(realEstate.getCheckOut());
+            realEstateDTO.setPrice(realEstate.getPrice());
             System.out.println(realEstate.getLocation().getLocation());
             System.out.println(realEstate.getCategory().getCategoryname());
-
             realEstateDTO.setLocation(realEstate.getLocation().getLocation());
             realEstateDTO.setCategory(realEstate.getCategory().getCategoryname());
             realEstateDTO.setCategoryId(realEstate.getCategory().getId());
@@ -129,6 +130,7 @@ public class RealEstateService {
             // ResourceDTO => Resource
             for (Resource resource : realEstate.getResource()) {
                 ResourceDTO resourceDTO = new ResourceDTO();
+//                resourceDTO.setId(realEstate.getId());
                 resourceDTO.setResourceType(resource.getResourceType());
                 resourceDTO.setUrl(resource.getUrl());
                 resourceDTOS.add(resourceDTO);
@@ -205,4 +207,88 @@ public class RealEstateService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return date.format(formatter);
     }
+
+    public RealEstateDTO getEstateById(long id){
+        RealEstate realEstate = realEstateRepository.findRealEstateById(id);
+
+        if (realEstate == null) {
+            // Handle the case where no real estate with the given ID is found
+            return null;
+        }
+
+        RealEstateDTO realEstateDTO = new RealEstateDTO();
+        // Map the properties from the real estate entity to the DTO
+        realEstateDTO.setId(realEstate.getId());
+        realEstateDTO.setTitle(realEstate.getTitle());
+        realEstateDTO.setDescription(realEstate.getDescription());
+        realEstateDTO.setAmount(realEstate.getAmount());
+        realEstateDTO.setCheckIn(realEstate.getCheckIn());
+        realEstateDTO.setCheckOut(realEstate.getCheckOut());
+        realEstateDTO.setPrice(realEstate.getPrice());
+        // Map category and location details
+        realEstateDTO.setCategory(realEstate.getCategory().getCategoryname());
+        realEstateDTO.setCategoryId(realEstate.getCategory().getId());
+        realEstateDTO.setLocation(realEstate.getLocation().getLocation());
+        realEstateDTO.setLocationId(realEstate.getLocation().getId());
+
+        // Map resources
+        List<ResourceDTO> resourceDTOs = new ArrayList<>();
+        for (Resource resource : realEstate.getResource()) {
+            ResourceDTO resourceDTO = new ResourceDTO();
+            resourceDTO.setResourceType(resource.getResourceType());
+            resourceDTO.setUrl(resource.getUrl());
+            resourceDTOs.add(resourceDTO);
+        }
+        realEstateDTO.setResources(resourceDTOs);
+
+        return realEstateDTO;
+    }
+
+    public List<RealEstateDTO> getAllEstateByCurrentUser() {
+        Users currentUser = accountUtils.getCurrentUser();
+        if (currentUser == null) {
+            // Handle the case where the user is not foundq
+            return null;
+        }
+
+        List<RealEstate> userRealEstates = realEstateRepository.findRealEstatesByUsers(currentUser);
+        if (userRealEstates.isEmpty()) {
+            // Handle the case where the user has not posted any real estate properties
+            return null;
+        }
+
+        RealEstateDTO realEstateDTO = new RealEstateDTO();
+        List<RealEstateDTO> realEstateDTOList = new ArrayList<>();
+
+        for (RealEstate realEstate : userRealEstates) {
+            // Map real estate entity to DTO
+            realEstateDTO.setId(realEstate.getId());
+            realEstateDTO.setTitle(realEstate.getTitle());
+            realEstateDTO.setDescription(realEstate.getDescription());
+            realEstateDTO.setAmount(realEstate.getAmount());
+            realEstateDTO.setCategory(realEstate.getCategory().getCategoryname());
+            realEstateDTO.setCategoryId(realEstate.getCategory().getId());
+            realEstateDTO.setLocation(realEstate.getLocation().getLocation());
+            realEstateDTO.setLocationId(realEstate.getLocation().getId());
+            realEstateDTO.setCheckIn(realEstate.getCheckIn());
+            realEstateDTO.setCheckOut(realEstate.getCheckOut());
+
+            List<ResourceDTO> resourceDTOList = new ArrayList<>();
+            for (Resource resource : realEstate.getResource()) {
+                // Map resource entity to DTO
+                ResourceDTO resourceDTO = new ResourceDTO();
+                resourceDTO.setResourceType(resource.getResourceType());
+                resourceDTO.setUrl(resource.getUrl());
+                resourceDTOList.add(resourceDTO);
+            }
+            realEstateDTO.setResources(resourceDTOList);
+
+            realEstateDTOList.add(realEstateDTO);
+        }
+
+        return realEstateDTOList;
+    }
+
+
+
 }
