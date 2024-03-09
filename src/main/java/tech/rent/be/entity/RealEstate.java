@@ -26,8 +26,12 @@ public class RealEstate {
     Date date;
     Long amount;
 
+    Long price;
+
+
     Time checkIn;
     Time checkOut;
+
 
 
     @ManyToOne
@@ -49,8 +53,5 @@ public class RealEstate {
     @ManyToOne
     @JoinColumn(name = "location")
     Location location;
-
-
-
 
 }

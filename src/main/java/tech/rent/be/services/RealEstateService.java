@@ -61,8 +61,12 @@ public class RealEstateService {
         realEstate.setDescription(realEstateDTO.getDescription());
         realEstate.setDate(realEstateDTO.getDate());
         realEstate.setAmount(realEstateDTO.getAmount());
+
+        realEstate.setPrice(realEstateDTO.getPrice());
+
         realEstate.setCheckIn(realEstateDTO.getCheckIn());
         realEstate.setCheckOut(realEstateDTO.getCheckOut());
+
         realEstate.setCategory(category);
         realEstate.setLocation(location);
         realEstate.setUsers(users);
@@ -116,8 +120,8 @@ public class RealEstateService {
 
             realEstateDTO.setLocation(realEstate.getLocation().getLocation());
             realEstateDTO.setCategory(realEstate.getCategory().getCategoryname());
-                 realEstateDTO.setCategoryId(realEstate.getCategory().getId());
-               realEstateDTO.setLocationId(realEstate.getLocation().getId());
+            realEstateDTO.setCategoryId(realEstate.getCategory().getId());
+            realEstateDTO.setLocationId(realEstate.getLocation().getId());
 
             estateDTOList.add(realEstateDTO);
 
@@ -163,6 +167,7 @@ public class RealEstateService {
                 for (Booking booking : bookings){
                     if(checkIfBookingFromTo(booking, convertStringToDate(convertLocalDateToString(from)+" 14:01:00"), convertStringToDate(convertLocalDateToString(to)+" 12:00:00"))){
                         check = true;
+                        finalList.remove(realEstate);
                     }
                 }
                 if(!check) finalList.add(realEstate);
@@ -200,8 +205,4 @@ public class RealEstateService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return date.format(formatter);
     }
-
-
-
-
 }

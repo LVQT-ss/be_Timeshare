@@ -22,6 +22,7 @@ public class RealEstateDTO {
     String description;
     Date date;
     Long amount;
+    Long Price;
     Long categoryId;
     Long locationId;
     String category;

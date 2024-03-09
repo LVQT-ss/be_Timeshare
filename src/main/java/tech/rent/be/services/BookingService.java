@@ -1,5 +1,6 @@
 package tech.rent.be.services;
 
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import tech.rent.be.dto.RealEstateDTO;
 import tech.rent.be.entity.Booking;
 import tech.rent.be.entity.RealEstate;
 import tech.rent.be.entity.Users;
+import tech.rent.be.exception.BadRequest;
 import tech.rent.be.repository.BookingRepository;
 import tech.rent.be.repository.PaymentRepository;
 import tech.rent.be.repository.RealEstateRepository;
@@ -23,10 +25,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 @Service
 public class BookingService {
@@ -40,6 +39,10 @@ public class BookingService {
 
     @Autowired
     RealEstateService realEstateService;
+
+
+
+
     @Autowired
     UsersRepository usersRepository;
 //    public Booking createBooking(BookingRequestDTO BookingRequestDTO){
@@ -83,8 +86,22 @@ public class BookingService {
         long realEstateId = bookingRequestDTO.getEstateId();
         RealEstate realEstate = realEstateService.finRealEstateById(realEstateId);
         booking.setBookingDate(bookingRequestDTO.getDate());
-        booking.setCheckIn(convertDate(bookingRequestDTO.getDate(), 12,0,0));
-        booking.setCheckOut(convertDate(bookingRequestDTO.getDate(), 14,0,0));
+        booking.setCheckIn(convertDate(bookingRequestDTO.getDate(), 14,0,0));
+        Date checkOut = convertDate(bookingRequestDTO.getDate(), 12,0,0);
+        Calendar c = Calendar.getInstance();
+        c.setTime(checkOut);
+        c.add(Calendar.DATE, bookingRequestDTO.getNumberOfDate());
+        checkOut = c.getTime();
+        booking.setCheckOut(checkOut);
+
+        List<Booking> bookings = bookingRepository.findBookingsByRealEstate(realEstate);
+        for (Booking booking1 : bookings){
+            if(realEstateService.checkIfBookingFromTo(booking1, booking.getCheckIn(), booking.getCheckOut())){
+                throw new BadRequest("Real Estate not available!");
+            }
+        }
+
+
         booking.setRealEstate(realEstate);
         booking.setUsers(accountUtils.getCurrentUser());
         booking.setStatus(false);
@@ -155,4 +172,5 @@ public class BookingService {
         }
         return result.toString();
     }
+
 }

@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import tech.rent.be.dto.BookingRequestDTO;
 import tech.rent.be.dto.PaymentDTO;
-import tech.rent.be.entity.Booking;
-import tech.rent.be.entity.Payment;
-import tech.rent.be.entity.RealEstate;
-import tech.rent.be.entity.Users;
+import tech.rent.be.dto.PostResponseDTO;
+import tech.rent.be.dto.ResourceDTO;
+import tech.rent.be.entity.*;
 import tech.rent.be.repository.BookingRepository;
 import tech.rent.be.repository.PaymentRepository;
+import tech.rent.be.utils.AccountUtils;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -23,6 +23,8 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -32,6 +34,10 @@ public class PaymentService {
     PaymentRepository paymentRepository;
     @Autowired
     BookingRepository bookingRepository;
+
+    @Autowired
+    AccountUtils accountUtils;
+
     public Payment createPayment(PaymentDTO paymentDTO){
         Booking booking = bookingRepository.findBookingById(paymentDTO.getBookingId());
         Payment payment = new Payment();
@@ -43,4 +49,8 @@ public class PaymentService {
         return paymentRepository.save(payment);
     }
 
+    public List<Booking> getAllBooking() {
+        List<Booking> paymentList = bookingRepository.findBookingsByUsers(accountUtils.getCurrentUser());
+        return paymentList;
+    }
 }

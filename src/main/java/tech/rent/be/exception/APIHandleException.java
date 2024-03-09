@@ -1,5 +1,6 @@
 package tech.rent.be.exception;
 
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -27,5 +28,10 @@ public class APIHandleException {
     @ExceptionHandler(ExpiredToken.class)
     public ResponseEntity<?> duplicate(ExpiredToken exception){
         return new ResponseEntity<String>(exception.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(BadRequest.class)
+    public ResponseEntity<?> duplicate(BadRequest exception){
+        return new ResponseEntity<String>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
