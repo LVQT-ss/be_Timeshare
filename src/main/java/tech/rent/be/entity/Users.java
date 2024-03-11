@@ -33,6 +33,7 @@ public class Users implements UserDetails {
 
     String gender;
     String phoneNumber;
+    @Column(columnDefinition = "nvarchar(255)")
     String address;
 
     AccountStatus status;

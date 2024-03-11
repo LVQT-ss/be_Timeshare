@@ -18,7 +18,8 @@ public class Booking {
     Date checkIn;
     Date bookingDate;
     Boolean Status;
-    long amount;
+    Long price;
+    int amount;
     @ManyToOne
     @JoinColumn(name = "user_id")
     Users users;

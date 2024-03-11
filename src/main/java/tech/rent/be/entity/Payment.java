@@ -11,6 +11,7 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long Id;
+    @Column(columnDefinition = "nvarchar(255)")
     String name;
     Long price;
 

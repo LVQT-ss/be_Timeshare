@@ -224,6 +224,7 @@ public class RealEstateService {
         realEstateDTO.setAmount(realEstate.getAmount());
         realEstateDTO.setCheckIn(realEstate.getCheckIn());
         realEstateDTO.setCheckOut(realEstate.getCheckOut());
+
         realEstateDTO.setPrice(realEstate.getPrice());
         // Map category and location details
         realEstateDTO.setCategory(realEstate.getCategory().getCategoryname());
@@ -257,15 +258,15 @@ public class RealEstateService {
             return null;
         }
 
-        RealEstateDTO realEstateDTO = new RealEstateDTO();
         List<RealEstateDTO> realEstateDTOList = new ArrayList<>();
-
         for (RealEstate realEstate : userRealEstates) {
+            RealEstateDTO realEstateDTO = new RealEstateDTO();
             // Map real estate entity to DTO
             realEstateDTO.setId(realEstate.getId());
             realEstateDTO.setTitle(realEstate.getTitle());
             realEstateDTO.setDescription(realEstate.getDescription());
             realEstateDTO.setAmount(realEstate.getAmount());
+            realEstateDTO.setPrice(realEstate.getPrice());
             realEstateDTO.setCategory(realEstate.getCategory().getCategoryname());
             realEstateDTO.setCategoryId(realEstate.getCategory().getId());
             realEstateDTO.setLocation(realEstate.getLocation().getLocation());
@@ -274,6 +275,7 @@ public class RealEstateService {
             realEstateDTO.setCheckOut(realEstate.getCheckOut());
 
             List<ResourceDTO> resourceDTOList = new ArrayList<>();
+
             for (Resource resource : realEstate.getResource()) {
                 // Map resource entity to DTO
                 ResourceDTO resourceDTO = new ResourceDTO();

@@ -21,7 +21,9 @@ public class RealEstate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    @Column(columnDefinition = "nvarchar(255)")
     String title;
+    @Column(columnDefinition = "nvarchar(255)")
     String description;
     Date date;
     Long amount;

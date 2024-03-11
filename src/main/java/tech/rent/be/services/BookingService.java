@@ -78,7 +78,8 @@ public class BookingService {
 
 
     public String getVnPay(BookingRequestDTO bookingRequestDTO) throws Exception{
-        String amount = String.valueOf(bookingRequestDTO.getAmount())+"00";
+        String amount = String.valueOf(bookingRequestDTO.getAmount());
+        String price = String.valueOf(bookingRequestDTO.getPrice() * 100);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         LocalDateTime createDate = LocalDateTime.now();
         String formattedCreateDate = createDate.format(formatter);
@@ -86,6 +87,8 @@ public class BookingService {
         long realEstateId = bookingRequestDTO.getEstateId();
         RealEstate realEstate = realEstateService.finRealEstateById(realEstateId);
         booking.setBookingDate(bookingRequestDTO.getDate());
+        booking.setPrice(bookingRequestDTO.getPrice());
+        booking.setAmount(bookingRequestDTO.getAmount());
         booking.setCheckIn(convertDate(bookingRequestDTO.getDate(), 14,0,0));
         Date checkOut = convertDate(bookingRequestDTO.getDate(), 12,0,0);
         Calendar c = Calendar.getInstance();
@@ -111,7 +114,7 @@ public class BookingService {
         String tmnCode = "40A49IOQ";
         String secretKey = "AEEWMWRNYYHFFBUSVJDVOLNYMRXTBMTQ";
         String vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        String returnUrl = "http://localhost:3000/success";
+        String returnUrl = "http://4rent.tech/success";
 
         String currCode = "VND";
         Map<String, String> vnpParams = new TreeMap<>();
@@ -123,7 +126,7 @@ public class BookingService {
         vnpParams.put("vnp_TxnRef", newBooking.getId().toString());
         vnpParams.put("vnp_OrderInfo", "Thanh toan cho ma GD: " + newBooking.getId());
         vnpParams.put("vnp_OrderType", "other");
-        vnpParams.put("vnp_Amount",amount );
+        vnpParams.put("vnp_Amount",price );
         vnpParams.put("vnp_ReturnUrl", returnUrl);
         vnpParams.put("vnp_CreateDate", formattedCreateDate);
         vnpParams.put("vnp_IpAddr", "128.199.178.23");
