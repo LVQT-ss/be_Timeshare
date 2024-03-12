@@ -140,12 +140,14 @@ public class RealEstateService {
         }
         return estateDTOList;
     }
+
     public List<RealEstateDTO> search(long categoryId, long locationId, long amount, LocalDate from, LocalDate to) {
         List<RealEstate> finalList = new ArrayList<>();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<RealEstate> criteriaQuery = criteriaBuilder.createQuery(RealEstate.class);
         Root<RealEstate> realEstateRoot = criteriaQuery.from(RealEstate.class);
         Predicate predicate = criteriaBuilder.conjunction();
+
         if(categoryId != 0){
             Join<RealEstate, Category> categoryJoin = realEstateRoot.join("category", JoinType.INNER);
             predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(categoryJoin.get("id"), categoryId));
@@ -157,8 +159,9 @@ public class RealEstateService {
         }
 
         if(amount != 0){
-            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(realEstateRoot.get("amount"), amount));
+            predicate = criteriaBuilder.and(predicate, criteriaBuilder.greaterThanOrEqualTo(realEstateRoot.get("amount"), amount));
         }
+
         criteriaQuery.where(predicate);
         List<RealEstate> realEstates = entityManager.createQuery(criteriaQuery).getResultList();
         finalList.addAll(realEstates);
