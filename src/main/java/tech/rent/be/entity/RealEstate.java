@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.catalina.User;
+import tech.rent.be.enums.EstateStatus;
+import tech.rent.be.enums.PostStatus;
 
 import java.sql.Time;
 import java.util.Date;
@@ -34,6 +36,8 @@ public class RealEstate {
     Time checkOut;
 
 
+    @Enumerated(EnumType.STRING)
+    private EstateStatus estateStatus;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

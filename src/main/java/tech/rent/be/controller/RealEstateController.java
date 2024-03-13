@@ -55,6 +55,12 @@ public class RealEstateController {
         List<RealEstateDTO> estateSearch = realEstateService.search(categoryId, locationId, amount, from, to);
         return ResponseEntity.ok(estateSearch);
     }
+    @PutMapping("/authorize")
+    public ResponseEntity<RealEstate> estateAuth(@PathVariable Long estateId){
+        RealEstate estate = realEstateService.AuthEstate(estateId);
+        return ResponseEntity.ok(estate);
+    }
+
 
 
 }

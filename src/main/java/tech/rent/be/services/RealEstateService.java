@@ -9,6 +9,8 @@ import tech.rent.be.dto.RealEstateDTO;
 import tech.rent.be.dto.ResourceDTO;
 import tech.rent.be.entity.*;
 //import tech.rent.be.entity.Resource;
+import tech.rent.be.enums.EstateStatus;
+import tech.rent.be.enums.PostStatus;
 import tech.rent.be.repository.*;
 import tech.rent.be.utils.AccountUtils;
 
@@ -293,7 +295,11 @@ public class RealEstateService {
 
         return realEstateDTOList;
     }
-
+    public RealEstate AuthEstate(long estateId) {
+        RealEstate estate = realEstateRepository.findRealEstateById(estateId);
+        estate.setEstateStatus(EstateStatus.INACTIVE);
+        return  realEstateRepository.save(estate);
+    }
 
 
 }
