@@ -46,9 +46,15 @@ public class Users implements UserDetails {
     @JsonIgnore
     List<RealEstate> estates;
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     @JsonIgnore
     List<Booking> bookings;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "wallet_id")
+    @JsonIgnore
+    Wallet wallet;
+
     public Long getId() {
         return id;
     }

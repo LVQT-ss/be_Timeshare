@@ -44,7 +44,6 @@ public class RealEstate {
             @JsonIgnore
     Users users;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "realEstate")
     List<Booking> booking;
 

@@ -6,7 +6,10 @@ import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import tech.rent.be.entity.Booking;
 import tech.rent.be.entity.Resource;
+import tech.rent.be.entity.Users;
+import tech.rent.be.enums.EstateStatus;
 //import tech.rent.be.entity.Resource;
 
 import java.sql.Time;
@@ -31,5 +34,9 @@ public class RealEstateDTO {
     Time checkOut;
 
     List<ResourceDTO> resources;
+
+    Users users;
+    List<Booking> bookings;
+    EstateStatus estateStatus;
 
 }

@@ -15,7 +15,7 @@ import tech.rent.be.services.PaymentService;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 @SecurityRequirement(name = "api")
 public class BookingController {
     @Autowired
@@ -40,9 +40,22 @@ public class BookingController {
         List<Booking> booking = paymentService.getAllBooking();
         return ResponseEntity.ok(booking);
     }
+
+    @GetMapping("/showBookingOfMember")
+    public ResponseEntity<List<Booking>> getAllMemberBooking() {
+        List<Booking> booking = paymentService.getAllBookingOfMember();
+        return ResponseEntity.ok(booking);
+    }
+
     @PutMapping("/cancelBooking/{bookingId}")
     public ResponseEntity<Booking> cancelBooking(@PathVariable Long bookingId){
         Booking booking = bookingService.cancelBooking(bookingId);
+        return ResponseEntity.ok(booking);
+    }
+
+    @PutMapping("/finishBooking/{bookingId}")
+    public ResponseEntity<Booking> finishBooking(@PathVariable Long bookingId){
+        Booking booking = bookingService.finishBooking(bookingId);
         return ResponseEntity.ok(booking);
     }
 //    @GetMapping("/showBookedEstateOfCurrentUser")

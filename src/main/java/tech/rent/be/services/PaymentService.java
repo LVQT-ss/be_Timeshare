@@ -12,6 +12,7 @@ import tech.rent.be.dto.ResourceDTO;
 import tech.rent.be.entity.*;
 import tech.rent.be.repository.BookingRepository;
 import tech.rent.be.repository.PaymentRepository;
+import tech.rent.be.repository.RealEstateRepository;
 import tech.rent.be.utils.AccountUtils;
 
 import javax.crypto.Mac;
@@ -36,6 +37,9 @@ public class PaymentService {
     BookingRepository bookingRepository;
 
     @Autowired
+    RealEstateRepository realEstateRepository;
+
+    @Autowired
     AccountUtils accountUtils;
 
     public Payment createPayment(PaymentDTO paymentDTO){
@@ -52,5 +56,15 @@ public class PaymentService {
     public List<Booking> getAllBooking() {
         List<Booking> paymentList = bookingRepository.findBookingsByUsers(accountUtils.getCurrentUser());
         return paymentList;
+    }
+
+    public List<Booking> getAllBookingOfMember() {
+        List<Booking> bookings = new ArrayList<>();
+        List<RealEstate> realEstates = realEstateRepository.findRealEstatesByUsers(accountUtils.getCurrentUser());
+        for(RealEstate realEstate: realEstates){
+            List<Booking> bookings1 = bookingRepository.findBookingsByRealEstate(realEstate);
+            bookings.addAll(bookings1);
+        }
+        return bookings;
     }
 }

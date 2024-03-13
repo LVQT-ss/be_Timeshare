@@ -24,7 +24,7 @@ public class Booking {
     int amount;
 
     @Enumerated(EnumType.STRING)
-     BookingStatus bookingStatus;
+    BookingStatus bookingStatus;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -37,5 +37,6 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "estate_id", unique = false)
+    @JsonIgnore
     RealEstate realEstate;
 }

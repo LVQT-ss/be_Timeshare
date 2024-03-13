@@ -116,6 +116,7 @@ public class RealEstateService {
             realEstateDTO.setTitle(realEstate.getTitle());
             realEstateDTO.setDescription(realEstate.getDescription());
 //            realEstateDTO.setDate(realEstate.getDate());
+            realEstateDTO.setEstateStatus(EstateStatus.APPROVED);
             realEstateDTO.setAmount(realEstate.getAmount());
             realEstateDTO.setCheckIn(realEstate.getCheckIn());
             realEstateDTO.setCheckOut(realEstate.getCheckOut());
@@ -237,7 +238,8 @@ public class RealEstateService {
         realEstateDTO.setCategoryId(realEstate.getCategory().getId());
         realEstateDTO.setLocation(realEstate.getLocation().getLocation());
         realEstateDTO.setLocationId(realEstate.getLocation().getId());
-
+        realEstateDTO.setUsers(realEstate.getUsers());
+        realEstateDTO.setBookings(realEstate.getBooking());
         // Map resources
         List<ResourceDTO> resourceDTOs = new ArrayList<>();
         for (Resource resource : realEstate.getResource()) {
@@ -304,6 +306,11 @@ public class RealEstateService {
     public RealEstate AuthEstateReject(long estateId) {
         RealEstate estate = realEstateRepository.findRealEstateById(estateId);
         estate.setEstateStatus(EstateStatus.REJECTED);
+        return  realEstateRepository.save(estate);
+    }
+    public RealEstate  EstateDelete(long estateId) {
+        RealEstate estate = realEstateRepository.findRealEstateById(estateId);
+        estate.setEstateStatus(EstateStatus.DELETED);
         return  realEstateRepository.save(estate);
     }
 
