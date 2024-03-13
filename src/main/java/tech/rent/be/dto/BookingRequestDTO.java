@@ -12,4 +12,5 @@ public class BookingRequestDTO {
     long estateId;
     int amount;
     Long price;
+
 }

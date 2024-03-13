@@ -7,8 +7,12 @@ import org.springframework.stereotype.Service;
 import tech.rent.be.dto.BookingRequestDTO;
 import tech.rent.be.dto.RealEstateDTO;
 import tech.rent.be.entity.Booking;
+import tech.rent.be.entity.Post;
 import tech.rent.be.entity.RealEstate;
 import tech.rent.be.entity.Users;
+import tech.rent.be.enums.BookingStatus;
+import tech.rent.be.enums.EstateStatus;
+import tech.rent.be.enums.PostStatus;
 import tech.rent.be.exception.BadRequest;
 import tech.rent.be.repository.BookingRepository;
 import tech.rent.be.repository.PaymentRepository;
@@ -161,6 +165,7 @@ public class BookingService {
     public Booking updatePayment(long bookingId){
         Booking booking = bookingRepository.findBookingById(bookingId);
         booking.setStatus(true);
+        booking.setBookingStatus(BookingStatus.ACTIVE);
         return bookingRepository.save(booking);
     }
     private String generateHMAC(String secretKey, String signData) throws NoSuchAlgorithmException, InvalidKeyException {
@@ -175,5 +180,13 @@ public class BookingService {
         }
         return result.toString();
     }
+
+    public Booking cancelBooking(long bookingId) {
+        Booking booking = bookingRepository.findBookingById(bookingId);
+        booking.setBookingStatus(BookingStatus.CANCEL);
+        return  bookingRepository.save(booking);
+    }
+
+
 
 }

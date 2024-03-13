@@ -8,6 +8,7 @@ import tech.rent.be.dto.BookingRequestDTO;
 import tech.rent.be.dto.PaymentDTO;
 import tech.rent.be.entity.Booking;
 import tech.rent.be.entity.Payment;
+import tech.rent.be.entity.RealEstate;
 import tech.rent.be.services.BookingService;
 import tech.rent.be.services.PaymentService;
 
@@ -39,4 +40,14 @@ public class BookingController {
         List<Booking> booking = paymentService.getAllBooking();
         return ResponseEntity.ok(booking);
     }
+    @PutMapping("/cancelBooking/{bookingId}")
+    public ResponseEntity<Booking> cancelBooking(@PathVariable Long bookingId){
+        Booking booking = bookingService.cancelBooking(bookingId);
+        return ResponseEntity.ok(booking);
+    }
+//    @GetMapping("/showBookedEstateOfCurrentUser")
+//     public ResponseEntity<List<Booking>> getAllRealEstateBooked() {
+//        List<Booking> booking = paymentService.getAllBooking();
+//        return ResponseEntity.ok(booking);
+//    }
 }

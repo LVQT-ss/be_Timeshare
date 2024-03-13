@@ -59,6 +59,7 @@ public class RealEstateService {
         Category category = categoryRepository.findCategoryById(realEstateDTO.getCategoryId());
         Location location = locationRepository.findLocationById(realEstateDTO.getLocationId());
         RealEstate realEstate = new RealEstate();
+        realEstate.setEstateStatus(EstateStatus.PENDING);
         realEstate.setDescription(realEstateDTO.getDescription());
         realEstate.setTitle(realEstateDTO.getTitle());
         realEstate.setDescription(realEstateDTO.getDescription());
@@ -295,11 +296,17 @@ public class RealEstateService {
 
         return realEstateDTOList;
     }
-    public RealEstate AuthEstate(long estateId) {
+    public RealEstate AuthEstateApprove(long estateId) {
         RealEstate estate = realEstateRepository.findRealEstateById(estateId);
-        estate.setEstateStatus(EstateStatus.INACTIVE);
+        estate.setEstateStatus(EstateStatus.APPROVED);
         return  realEstateRepository.save(estate);
     }
+    public RealEstate AuthEstateReject(long estateId) {
+        RealEstate estate = realEstateRepository.findRealEstateById(estateId);
+        estate.setEstateStatus(EstateStatus.REJECTED);
+        return  realEstateRepository.save(estate);
+    }
+
 
 
 }
