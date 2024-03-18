@@ -59,9 +59,13 @@ public class RealEstateService {
         Category category = categoryRepository.findCategoryById(realEstateDTO.getCategoryId());
         Location location = locationRepository.findLocationById(realEstateDTO.getLocationId());
         RealEstate realEstate = new RealEstate();
+
         realEstate.setEstateStatus(EstateStatus.PENDING);
+
         realEstate.setDescription(realEstateDTO.getDescription());
+
         realEstate.setTitle(realEstateDTO.getTitle());
+
         realEstate.setDescription(realEstateDTO.getDescription());
 //        realEstate.setDate(realEstateDTO.getDate());
         realEstate.setAmount(realEstateDTO.getAmount());
@@ -102,7 +106,7 @@ public class RealEstateService {
 
 
     public List<RealEstateDTO> getAllRealEstate() {
-        List<RealEstate> estateList = realEstateRepository.findAll();
+        List<RealEstate> estateList = realEstateRepository.findRealEstatesByEstateStatus(EstateStatus.APPROVED);
         return convertToDTO(estateList);
     }
 
@@ -116,7 +120,50 @@ public class RealEstateService {
             realEstateDTO.setTitle(realEstate.getTitle());
             realEstateDTO.setDescription(realEstate.getDescription());
 //            realEstateDTO.setDate(realEstate.getDate());
-            realEstateDTO.setEstateStatus(EstateStatus.APPROVED);
+            realEstateDTO.setEstateStatus(realEstate.getEstateStatus());
+            realEstateDTO.setAmount(realEstate.getAmount());
+            realEstateDTO.setCheckIn(realEstate.getCheckIn());
+            realEstateDTO.setCheckOut(realEstate.getCheckOut());
+            realEstateDTO.setPrice(realEstate.getPrice());
+            System.out.println(realEstate.getLocation().getLocation());
+            System.out.println(realEstate.getCategory().getCategoryname());
+            realEstateDTO.setLocation(realEstate.getLocation().getLocation());
+            realEstateDTO.setCategory(realEstate.getCategory().getCategoryname());
+            realEstateDTO.setCategoryId(realEstate.getCategory().getId());
+            realEstateDTO.setLocationId(realEstate.getLocation().getId());
+
+            estateDTOList.add(realEstateDTO);
+
+            List<ResourceDTO> resourceDTOS = new ArrayList<>();
+            // ResourceDTO => Resource
+            for (Resource resource : realEstate.getResource()) {
+                ResourceDTO resourceDTO = new ResourceDTO();
+//                resourceDTO.setId(realEstate.getId());
+                resourceDTO.setResourceType(resource.getResourceType());
+                resourceDTO.setUrl(resource.getUrl());
+                resourceDTOS.add(resourceDTO);
+            }
+            realEstateDTO.setResources(resourceDTOS);
+
+        }
+        return estateDTOList;
+    }
+    public List<RealEstateDTO> getAllRealEstateToAdmin() {
+        List<RealEstate> estateListA = realEstateRepository.findAll();
+        return convertToDTOtoAdmin(estateListA);
+    }
+
+    public List<RealEstateDTO> convertToDTOtoAdmin(List<RealEstate> estateList) {
+        List<RealEstateDTO> estateDTOList = new ArrayList<>();
+
+        for (RealEstate realEstate : estateList) {
+            RealEstateDTO realEstateDTO = new RealEstateDTO();
+            //Map
+            realEstateDTO.setId(realEstate.getId());
+            realEstateDTO.setTitle(realEstate.getTitle());
+            realEstateDTO.setDescription(realEstate.getDescription());
+//            realEstateDTO.setDate(realEstate.getDate());
+            realEstateDTO.setEstateStatus(realEstate.getEstateStatus());
             realEstateDTO.setAmount(realEstate.getAmount());
             realEstateDTO.setCheckIn(realEstate.getCheckIn());
             realEstateDTO.setCheckOut(realEstate.getCheckOut());

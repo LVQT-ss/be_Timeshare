@@ -32,6 +32,11 @@ public class RealEstateController {
         List<RealEstateDTO> estates = realEstateService.getAllRealEstate();
         return ResponseEntity.ok(estates);
     }
+    @GetMapping("/showEstateToAdmin")
+    public ResponseEntity<List<RealEstateDTO>> getAllRealEstateToAdmin() {
+        List<RealEstateDTO> estates = realEstateService.getAllRealEstateToAdmin();
+        return ResponseEntity.ok(estates);
+    }
 
     @GetMapping("/showEstateDetail/{id}")
     public ResponseEntity<RealEstateDTO> getEstateById(@PathVariable long id) {
