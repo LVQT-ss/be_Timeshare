@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tech.rent.be.dto.PostResponseDTO;
 import tech.rent.be.dto.RealEstateDTO;
-import tech.rent.be.dto.UserDTO;
 import tech.rent.be.entity.RealEstate;
 import tech.rent.be.services.RealEstateService;
 

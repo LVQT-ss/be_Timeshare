@@ -37,17 +37,23 @@ public class AuthenticationService {
     public Users register(Users users){
         String rawPassword = users.getPassword();
         users.setPassword(passwordEncoder.encode(rawPassword));
+
         users.setStatus(AccountStatus.IN_ACTIVATED);
         //encode
+        if (usersRepository.findByUsername(users.getUsername()).isPresent()){
+            throw new DuplicateException("Tên đăng nhập bị trùng ");
+        }
         try {
             Users user = usersRepository.save(users);
             EmailDetail emailDetail = new EmailDetail();
             emailDetail.setUser(user);
-            emailDetail.setSubject("Confirm Email");
+            emailDetail.setSubject("Xác thực Email");
             emailService.sendEmail(emailDetail);
             return user;
+
         }catch (DataIntegrityViolationException e){
-            throw new DuplicateException("Duplicate Email");
+
+            throw new DuplicateException("Email đã tồn tại");
         }
     }
     public LoginResponseDTO login(LoginRequestDTO loginRequestDTO){
@@ -61,7 +67,7 @@ public class AuthenticationService {
             // acoount chuan
             users = (Users) authentication.getPrincipal();
             if(users.getStatus() == AccountStatus.IN_ACTIVATED){
-                throw new BadCredentialsException("Account is not active!!!");
+                throw new BadCredentialsException("Tài khoản chưa được kích hoạt!!");
             }
             LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
             loginResponseDTO.setId(users.getId());
@@ -72,10 +78,10 @@ public class AuthenticationService {
             return loginResponseDTO;
         }catch (Exception e){
             if(users != null && users.getStatus() == AccountStatus.IN_ACTIVATED){
-                throw new BadCredentialsException("Account is not active");
+                throw new BadCredentialsException("Tài khoản chưa được kích hoạt");
             }
             e.printStackTrace();
-            throw new BadCredentialsException("Username or password invalid");
+            throw new BadCredentialsException("Tên đăng nhập hoặc mật khẩu không hợp lệ");
         }
     }
 
@@ -87,7 +93,7 @@ public class AuthenticationService {
             user.setStatus(AccountStatus.ACTIVATED);
             usersRepository.save(user);
         }catch (Exception e){
-            throw new InValidToken("Invalid token");
+            throw new InValidToken("token không hợp lệ");
         }
 
     }
