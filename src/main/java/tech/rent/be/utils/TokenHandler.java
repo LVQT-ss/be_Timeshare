@@ -12,7 +12,7 @@ public class TokenHandler {
     //    1s => 1000ms
 //    private final UUID EXPIRATION = 1 * 60 * 1000;
     private final long EXPIRATION = 1 * 24 * 60 * 60 * 1000;
-
+                                        // ngày giờ phut giay micirogiay
     // create token (encode)
     public String generateToken(Users userSecurity) {
         Date now = new Date(); // get current time
