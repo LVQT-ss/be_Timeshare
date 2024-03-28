@@ -32,7 +32,7 @@ public class RealEstateDTO {
     String location;
     Time checkIn;
     Time checkOut;
-
+    Long discount;
     List<ResourceDTO> resources;
 
     Users users;

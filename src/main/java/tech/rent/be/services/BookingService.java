@@ -47,6 +47,9 @@ public class BookingService {
     @Autowired
     TransactionRepository transactionRepository;
 
+    @Autowired
+    PostRepository postRepository;
+
 
     @Autowired
     UsersRepository usersRepository;
@@ -89,11 +92,20 @@ public class BookingService {
         LocalDateTime createDate = LocalDateTime.now();
         String formattedCreateDate = createDate.format(formatter);
         Booking booking = new Booking();
+        Post post;
+        if(bookingRequestDTO.getPostId() != 0){
+            post = postRepository.findById(bookingRequestDTO.getPostId());
+            post.getBookings().add(booking);
+            booking.setPost(post);
+            booking.setPrice(bookingRequestDTO.getPrice());
+        }else{
+            booking.setPrice(bookingRequestDTO.getPrice());
+        }
         long realEstateId = bookingRequestDTO.getEstateId();
         RealEstate realEstate = realEstateService.finRealEstateById(realEstateId);
         booking.setBookingStatus(BookingStatus.ACTIVE);
         booking.setBookingDate(new Date());
-        booking.setPrice(bookingRequestDTO.getPrice());
+
         booking.setAmount(bookingRequestDTO.getAmount());
         booking.setCheckIn(convertDate(bookingRequestDTO.getDate(), 14, 0, 0));
         Date checkOut = convertDate(bookingRequestDTO.getDate(), 12, 0, 0);

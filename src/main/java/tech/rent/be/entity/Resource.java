@@ -9,7 +9,8 @@ import lombok.Setter;
 import tech.rent.be.enums.Type;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Resource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

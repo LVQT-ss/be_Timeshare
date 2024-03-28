@@ -58,13 +58,15 @@ public class PaymentService {
             bookingResponse.setId(b.getId());
             bookingResponse.setRealEstate(b.getRealEstate());
             bookingResponse.setBookingDate(b.getBookingDate());
-            bookingResponse.setBookingStatus(b.getBookingStatus());
+
             bookingResponse.setAmount(b.getAmount());
             bookingResponse.setCheckIn(b.getCheckIn());
             bookingResponse.setCheckOut(b.getCheckOut());
             bookingResponse.setPrice(b.getPrice());
-            bookingResponse.setBookingStatus(b.getBookingStatus());
-            bookingResponse.setUsers(b.getUsers());
+            bookingResponse.setStatus(b.getStatus());
+//
+//            bookingResponse.setBookingStatus(b.getBookingStatus());
+//            bookingResponse.setUsers(b.getUsers());
             bookingResponseList.add(bookingResponse);
 
         }

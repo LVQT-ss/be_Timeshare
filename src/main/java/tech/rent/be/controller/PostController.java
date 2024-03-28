@@ -6,13 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.rent.be.dto.PostRequestDTO;
 import tech.rent.be.dto.PostResponseDTO;
-import tech.rent.be.dto.UserDTO;
+import tech.rent.be.dto.RealEstateDTO;
 import tech.rent.be.entity.Post;
 import tech.rent.be.repository.PostRepository;
 import tech.rent.be.services.PostService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/post")
@@ -34,9 +33,26 @@ public class PostController {
         List<PostResponseDTO> posts = postService.getAllPosts();
         return ResponseEntity.ok(posts);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity getPostByID(@PathVariable long id)  {
+        Post posts = postService.getPostByID(id);
+        return ResponseEntity.ok(posts);
+    }
     @PutMapping("/delete/{postId}")
     public ResponseEntity<Post> deletePost(@PathVariable Long postId) {
         Post post = postService.deletePost(postId);
         return ResponseEntity.ok(post);
     }
+
+    @GetMapping("/allPostOfCurrentUser")
+    public ResponseEntity<List<PostResponseDTO>> getAllPostByCurrentUser() {
+        try {
+            List<PostResponseDTO>  postDTO = postService.getAllPostsByCurrentUser();
+            return ResponseEntity.ok(postDTO);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+        // Or you could use @ExceptionHandler to handle exceptions globally
+    }
+
 }

@@ -25,7 +25,7 @@ public class RealEstate {
     Long id;
     @Column(columnDefinition = "nvarchar(255)")
     String title;
-    @Column(columnDefinition = "nvarchar(10000)")
+    @Column(columnDefinition = "nvarchar(4000)")
     String description;
     Date date;
     Long amount;
@@ -34,14 +34,14 @@ public class RealEstate {
 
     Time checkIn;
     Time checkOut;
-
+    Long discount;
 
     @Enumerated(EnumType.STRING)
     private EstateStatus estateStatus;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-            @JsonIgnore
+    @JsonIgnore
     Users users;
 
     @OneToMany(mappedBy = "realEstate")

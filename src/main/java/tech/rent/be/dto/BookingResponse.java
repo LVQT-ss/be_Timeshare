@@ -15,7 +15,7 @@ public class BookingResponse {
     Date checkIn;
     Date bookingDate;
     Boolean Status;
-    Long price;
+    float price;
     int amount;
     BookingStatus bookingStatus;
     Users users;

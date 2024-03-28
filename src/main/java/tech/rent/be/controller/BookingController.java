@@ -59,6 +59,8 @@ public class BookingController {
         Booking booking = bookingService.finishBooking(bookingId);
         return ResponseEntity.ok(booking);
     }
+
+
 //    @GetMapping("/showBookedEstateOfCurrentUser")
 //     public ResponseEntity<List<Booking>> getAllRealEstateBooked() {
 //        List<Booking> booking = paymentService.getAllBooking();

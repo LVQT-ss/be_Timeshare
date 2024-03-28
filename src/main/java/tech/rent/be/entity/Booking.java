@@ -20,7 +20,7 @@ public class Booking {
     Date checkIn;
     Date bookingDate;
     Boolean Status;
-    Long price;
+    float price;
     int amount;
 
     @Enumerated(EnumType.STRING)
@@ -39,4 +39,9 @@ public class Booking {
     @JoinColumn(name = "estate_id", unique = false)
     @JsonIgnore
     RealEstate realEstate;
+
+    @ManyToOne()
+    @JsonIgnore
+    @JoinColumn(name = "post_id", nullable = true)
+    Post post;
 }
