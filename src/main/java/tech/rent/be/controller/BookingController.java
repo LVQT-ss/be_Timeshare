@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.rent.be.dto.BookingRequestDTO;
+import tech.rent.be.dto.BookingResponse;
 import tech.rent.be.dto.PaymentDTO;
 import tech.rent.be.entity.Booking;
 import tech.rent.be.entity.Payment;
@@ -36,8 +37,8 @@ public class BookingController {
     }
 
     @GetMapping("/showBookingHistory")
-    public ResponseEntity<List<Booking>> getAllRealEstate() {
-        List<Booking> booking = paymentService.getAllBooking();
+    public ResponseEntity<List<BookingResponse>> getAllRealEstate() {
+        List<BookingResponse> booking = paymentService.getAllBooking();
         return ResponseEntity.ok(booking);
     }
 

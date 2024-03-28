@@ -92,7 +92,7 @@ public class BookingService {
         long realEstateId = bookingRequestDTO.getEstateId();
         RealEstate realEstate = realEstateService.finRealEstateById(realEstateId);
         booking.setBookingStatus(BookingStatus.ACTIVE);
-        booking.setBookingDate(bookingRequestDTO.getDate());
+        booking.setBookingDate(new Date());
         booking.setPrice(bookingRequestDTO.getPrice());
         booking.setAmount(bookingRequestDTO.getAmount());
         booking.setCheckIn(convertDate(bookingRequestDTO.getDate(), 14, 0, 0));
@@ -106,7 +106,7 @@ public class BookingService {
         List<Booking> bookings = bookingRepository.findBookingsByRealEstate(realEstate);
         for (Booking booking1 : bookings) {
             if (realEstateService.checkIfBookingFromTo(booking1, booking.getCheckIn(), booking.getCheckOut())) {
-                throw new BadRequest("Real Estate not available!");
+                throw new BadRequest("Căn hộ không khả dụng!");
             }
         }
 
@@ -243,6 +243,7 @@ public class BookingService {
     }
 
     public Booking cancelBooking(long bookingId) {
+
         Booking booking = bookingRepository.findBookingById(bookingId);
         booking.setBookingStatus(BookingStatus.CANCEL);
 
@@ -255,7 +256,7 @@ public class BookingService {
         Wallet memberWallet = member.getWallet();
         Wallet adminWallet = admin.getWallet();
         Date currentDate = new Date();
-        long diff = booking.getBookingDate().getTime() - currentDate.getTime();//as given
+        long diff = booking.getCheckIn().getTime() - currentDate.getTime();//as given
         long days = TimeUnit.MILLISECONDS.toDays(diff);
 
           if (days > 7) {
@@ -295,7 +296,7 @@ public class BookingService {
             walletRepository.save(memberWallet);
         } else {
             // not refund
-            throw new BadRequest("Can not cancel!!!");
+            throw new BadRequest("Không thể hủy!!!");
         }
 
         return bookingRepository.save(booking);

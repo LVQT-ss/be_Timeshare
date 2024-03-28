@@ -42,7 +42,7 @@ public class EmailService {
             mimeMessageHelper.setFrom("admin@gmail.com");
             mimeMessageHelper.setTo(emailDetail.getUser().getEmail());
             mimeMessageHelper.setText(text, true);
-            mimeMessageHelper.setSubject("Thư đe dọa");
+            mimeMessageHelper.setSubject("Xác Nhận Tài Khoản");
             javaMailSender.send(mimeMessage);
         }catch (MessagingException messagingException){
             messagingException.printStackTrace();

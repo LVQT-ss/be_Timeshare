@@ -25,7 +25,7 @@ public class RealEstate {
     Long id;
     @Column(columnDefinition = "nvarchar(255)")
     String title;
-    @Column(columnDefinition = "nvarchar(255)")
+    @Column(columnDefinition = "nvarchar(10000)")
     String description;
     Date date;
     Long amount;
