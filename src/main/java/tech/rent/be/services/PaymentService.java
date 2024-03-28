@@ -56,12 +56,17 @@ public class PaymentService {
         for(Booking b: bookings){
             BookingResponse bookingResponse = new BookingResponse();
             bookingResponse.setId(b.getId());
+            bookingResponse.setRealEstate(b.getRealEstate());
             bookingResponse.setBookingDate(b.getBookingDate());
             bookingResponse.setBookingStatus(b.getBookingStatus());
             bookingResponse.setAmount(b.getAmount());
             bookingResponse.setCheckIn(b.getCheckIn());
             bookingResponse.setCheckOut(b.getCheckOut());
+            bookingResponse.setPrice(b.getPrice());
+            bookingResponse.setBookingStatus(b.getBookingStatus());
+            bookingResponse.setUsers(b.getUsers());
             bookingResponseList.add(bookingResponse);
+
         }
         return bookingResponseList;
     }
